@@ -5,14 +5,12 @@ Router.configure({
   before : function () {
     if (!Meteor.user()) {
       if (Meteor.loggingIn()) {
-        // do nothing, just call this.next();
+        // just call this.next();
         this.next();
-      }
-      else {
+      } else {
         this.render('Login');
       }
-    }
-    else {
+    } else {
       this.redirect('/Dashboard');
     }
   },
@@ -23,6 +21,6 @@ Router.configure({
   }
 });
 
-// By default the router will render the capitalized name of the template, with punctuations removed.
+// By default the router will render the capitalized name of the template, with punctuations removed and next letter capped.
 Router.route('/login');
 Router.route('/dashboard');
