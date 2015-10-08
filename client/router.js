@@ -23,6 +23,9 @@ Router.configure({
   }
 });
 
+
+
 // By default the router will render the capitalized name of the template, with punctuations removed.
 Router.route('/login');
 Router.route('/dashboard');
+Router.route('/profile/edit');
