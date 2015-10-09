@@ -45,7 +45,7 @@
   </div>
 
   <div class="taskList row">
-    <div class="taskRow small-12 large-4 columns"id="todoCol">
+    <div class="taskRow small-12 large-4 columns" id="todoCol">
       <h2 id="todoHeader">To Do</h2>
       {{#each toDoTasks}}
         {{> task}}
@@ -89,8 +89,8 @@
   <div id="editTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
     <h2 id="modalTitle">Edit Task</h2>
     <form id="editTask" action="tasks/edit">
-      <input class="modalTaskTitle" {{#if currentUser}} type="text" {{else}} readonly="readonly" {{/if}} value="{{taskTitle}}">
-      <textarea class="modalTaskBody" {{#if currentUser}} readonly="readonly" {{/if}}>{{taskBody}}</textarea>
+      <input class="modalTaskTitle" type="text" value="{{taskTitle}}">
+      <textarea class="modalTaskBody">{{taskBody}}</textarea>
       <input type="submit">
     </form>
     <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>

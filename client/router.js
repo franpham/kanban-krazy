@@ -22,7 +22,8 @@ Router.configure({
 });
 
 Router.route('/', { template: 'Dashboard' });
-Router.route('/login');
+Router.route('/login', { template: '' });
 Router.route('/dashboard');
+Router.route('/taskboard');
 Router.route('/profile/edit', { name: 'profile.edit' });
 // By default the router will render the capitalized name of the template, with punctuations removed and next letter capped.

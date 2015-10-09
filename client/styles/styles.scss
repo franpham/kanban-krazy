@@ -1,10 +1,12 @@
+@import 'clearfix';
+$phone: 'only screen and (max-width: 800px)';
+$desktop: 'only screen and (min-width: 800px)';
 
 #heading {
   text-align: center;
 }
 
 // css && scss for centered top-bar
-
 @media only screen and (min-width: 40em) {
   .top-bar {
     text-align: center; }
@@ -15,7 +17,9 @@
   .logo {
     left: 5px;
     top: -2px;
-    position: absolute; } }
+    position: absolute; }
+}
+
 .logo {
   max-width: 2rem;
   margin-top: -3px;
