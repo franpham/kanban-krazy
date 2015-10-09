@@ -1,45 +1,64 @@
 
-<template name="Dashboard">
-  <a href="#" data-reveal-id="newTaskModel">
-    <div id="newTaskButton">+</div>
-  </a>
-  <div id="newTaskModel" class="reveal-model" data-reveal aria-labelledby="modelTitle" aria-hidden="true" role="dialog">
-    <h2 id="modelTitle">Add a task!</h2>
-      {{> newTaskTemplate}}
-    <a class="close-reveal-model" aria-label="Close">&#215;</a>
+<template name="Taskboard">
+  <div class="controlButtons row">
+    <div class="medium-6 small-12 columns">
+      <div class="fixed contain-to-grid">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+          <li class="toggle-topbar menu-icon"></li>
+        </ul>
+        <section class="top-bar-section">
+          <ul class="center-buttons">
+            <li class="divider"></li>
+            <li><a id="addTask" data-reveal-id="addTaskModal" href="#">Add</a></li>
+            <li class="divider"></li>
+            <li><a id="editTask" data-reveal-id="editTaskModal" href="#">Edit</a></li>
+            <li class="divider"></li>
+            <li><a id="deleteTask" data-reveal-id="deleteTaskModal" href="#">Delete</a></li>
+            <li class="divider"></li>
+          </ul>
+        </section>
+      </nav>
+      </div>
+    </div>
+    <div class="medium-6 small-12 columns">
+      <div class="fixed contain-to-grid">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="toggle-topbar menu-icon"></li>
+        </ul>
+        <section class="top-bar-section">
+          <ul class="center-buttons">
+            <li class="divider"></li>
+            <li><a id="todo" href="#">To Do</a></li>
+            <li class="divider"></li>
+            <li><a id="progress" href="#">In Progress</a></li>
+            <li class="divider"></li>
+            <li><a id="done" href="#">Done</a></li>
+            <li class="divider"></li>
+          </ul>
+        </section>
+      </nav>
+      </div>
+    </div>
   </div>
 
-  {{#if localDashboard}}
-    <div id="archiveTaskButton"></div>
-  {{/if}}
-
-  <div class="dashboardOfTasks row">
-
-    <div class="taskRow small-12 large-4 columns" >
-      <div class="taskColHeader">
-        <h1>To Do</h1>
-        </div>
-          {{#each toDoTasks}}
-            {{> task}}
-          {{/each}}
-      </div>
-
-    <div class="taskRow small-12 large-4 columns" id="inProgressCol">
-      <div class="taskColHeader">
-        <h1>In Progress</h1>
-      </div>
-
+  <div class="taskList row">
+    <div class="taskRow small-12 large-4 columns"id="todoCol">
+      <h2 id="todoHeader">To Do</h2>
+      {{#each toDoTasks}}
+        {{> task}}
+      {{/each}}
+    </div>
+    <div class="taskRow small-12 large-4 columns" id="progressCol">
+      <h2 id="progressHeader">In Progress</h2>
       {{#each inProgressTasks}}
         {{> task}}
       {{/each}}
-
     </div>
-
     <div class="taskRow small-12 large-4 columns" id="doneCol">
-      <div id="doneButton" class="taskColHeader">
-        <h1 >Done</h1>
-      </div>
-
+      <h2 id="doneHeader">Done</h2>
       {{#each doneTasks}}
         {{> task}}
       {{/each}}
@@ -47,81 +66,34 @@
   </div>
  </template>
 
- <template name='comment'>
+<template name="Task">
+  <div class="task">
+    <h3 class="taskTitle">{{taskTitle}}</h3>
+    <div class="taskBody">{{taskBody}}</div>
+  </div>
+</template>
 
-    <div class="row commentsRow">
-      <div class="small-6 columns commentAuthor">
-        {{commentAuthor}} says:
-      </div>
-      <div class="small-6 columns commentsDate">
-        January, 24th 1989
-      </div>
-      <div class="small-12 columns">
-        <p class="commentBody">{{commentBody}}</p>
-      </div>
-    </div>
- </template>
+<template name="AddTask">
+  <div id="addTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <h2 id="modalTitle">Add Task</h2>
+    <form id="addTask" action="tasks/add">
+      <input class="modalTaskTitle" type="text" value="Title">
+      <textarea class="modalTaskBody">Description</textarea>
+      <input type="submit">
+    </form>
+    <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+</template>
 
-
- <template name='task'>
-  <div class={{currentColor}} id={{_id}}>
-    <div class="taskTitleContainer">
-    {{#if myTask}}
-      <input class="taskTitle" type='text' value={{title}}>
-    {{else}}
-    <input class="taskTitle" readonly="readonly" value={{title}} >
-    {{/if}}
-    </div>
-
-    <div class="taskBodyContainer">
-    {{#if myTask}}
-      <!-- <p class='taskBody' contenteditable='true'>{{body}}</p> -->
-      <textarea class='taskBody'>{{body}}</textarea>
-    {{else}}
-      <!-- <p class='taskBody'>{{body}}</p> -->
-      <textarea class='taskBody' readonly="readonly">{{body}}</textarea>
-
-    {{/if}}
-    </div>
-
-    <div class='taskButtonRow row'>
-
-      {{#if myTask}}
-        <div class='taskEditButton small-4 columns'>
-          {{> editTaskTemplate}}
-        </div>
-      {{else}}
-        <div class='taskStarButton small-4 columns'>
-          <div id="taskStar"></div>
-        </div>
-      {{/if}}
-
-        <div class="commentsIconHouse small-4 columns">
-          <div id='commentButton{{_id}}' class="commentsIcon">{{commentTotal}}</div>
-        </div>
-
-      {{#if myTask}}
-        <div class="small-4 columns">
-          <a href="" class="moveTaskAlong">
-          {{#if complete}}
-            <div id="taskCheck"></div>
-          {{else}}
-            <div id="taskArrow"></div>
-          {{/if}}
-          </a>
-        </div>
-      {{/if}}
-
-      {{#if myTask}}
-      {{else}}
-      <div class="taskOwnerBox small-4 columns">
-        <div class="taskOwnerName">
-          {{taskOwner}}
-        </div>
-      </div>
-      {{/if}}
-
-
-    </div>
-
+<template name="EditTask">
+  <div id="editTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <h2 id="modalTitle">Edit Task</h2>
+    <form id="editTask" action="tasks/edit">
+      <input class="modalTaskTitle" {{#if currentUser}} type="text" {{else}} readonly="readonly" {{/if}} value="{{taskTitle}}">
+      <textarea class="modalTaskBody" {{#if currentUser}} readonly="readonly" {{/if}}>{{taskBody}}</textarea>
+      <input type="submit">
+    </form>
+    <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+</template>
 

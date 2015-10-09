@@ -1,0 +1,80 @@
+<template name="Dashboard">
+  <h2>
+    <a id="profile.edit" href="profile/edit">Welcome</a>
+    {{> loginButtons }}
+  </h2>
+</template>
+
+
+
+<template name= "ProfileEdit">
+  <form id="ProfileEdit" action="/profile/edit">
+    <label for="bday">Birthday:
+      <input type="text" id="bday" value="{{currentUser.profile.bday}}" autocomplete="bday" placeholder="mm-dd-yy" minlength="8" maxlength="8">
+    </label>
+    <label for="tel">Phone:
+      <input type="text" value="{{currentUser.profile.tel}}" id="tel" autocomplete="tel" placeholder="123-456-7890" minlength="12" maxlength="12">
+    </label>
+    <input type="submit">
+  </form>
+</template>
+
+
+
+<!-- EXTRAS -->
+
+    {{#if myTask}}
+    {{/if}}
+
+  {{#if localDashboard}}
+    <div id="archiveTaskButton"></div>
+  {{/if}}
+
+
+      {{#if myTask}}
+    {{else}}
+    <div class="taskOwnerBox small-4 columns">
+      <div class="taskOwnerName">
+        {{taskOwner}}
+      </div>
+    </div>
+    {{/if}}
+    </div>
+
+
+    <div class="small-4 columns">
+      <a href="" class="moveTaskAlong">
+      {{#if complete}}
+        <div id="taskCheck"></div>
+      {{else}}
+        <div id="taskArrow"></div>
+      {{/if}}
+      </a>
+    </div>
+
+
+ <template name='comment'>
+    <div class="row commentsRow">
+      <div class="small-6 columns commentAuthor">
+        {{commentAuthor}}:
+      </div>
+      <div class="small-6 columns commentsDate">
+        {{commentDate}}
+      </div>
+      <div class="small-12 columns">
+        <p class="commentBody">{{commentBody}}</p>
+      </div>
+    </div>
+ </template>
+
+
+       <div class="links">
+        <dl class="sub-nav navlinks">
+          <dd><a id="newTask" data-reveal-id="newTaskModal" href="#">New</a></dd>
+          <dd><a id="editTask" data-reveal-id="editTaskModal" href="#">Edit</a></dd>
+          <dd><a id="deleteTask" data-reveal-id="deleteTaskModal" href="#">Delete</a></dd>
+          <dd><a id="todo" href="#">To Do</a></dd>
+          <dd><a id="progress" href="#">In Progress</a></dd>
+          <dd><a id="done" href="#">Done</a></dd>
+        </dl>
+      </div>
