@@ -1,8 +1,11 @@
 <template name= "ProfileEdit">
-	<h1></h1>
-	<form> 
-	<input type="text" id="name"> name </input>
-	<input type="text" id="email"> email address </input>
-	<input type="submit"> change </input>
+	<form id="ProfileEdit" action="/profile/edit">
+  	<label for="bday">Birthday:
+      <input type="text" id="bday" value="{{currentUser.profile.bday}}" autocomplete="bday" placeholder="mm-dd-yy" minlength="8" maxlength="8">
+    </label>
+  	<label for="tel">Phone:
+      <input type="text" value="{{currentUser.profile.tel}}" id="tel" autocomplete="tel" placeholder="123-456-7890" minlength="12" maxlength="12">
+    </label>
+  	<input type="submit">
 	</form>
 </template>
