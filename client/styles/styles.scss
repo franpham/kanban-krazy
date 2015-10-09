@@ -6,7 +6,12 @@ $desktop: 'only screen and (min-width: 800px)';
   text-align: center;
 }
 
-// css && scss for centered top-bar
+#welcome, #login {
+  float: right;
+}
+
+
+// BEGIN CSS FOR centered top-bar
 @media only screen and (min-width: 40em) {
   .top-bar {
     text-align: center; }
@@ -65,3 +70,4 @@ $desktop: 'only screen and (min-width: 800px)';
 .top-bar.expanded {
   background: #333333;
 }
+// END CSS FOR top-bar

@@ -2,7 +2,8 @@
 <template name="AppLayout">
   <head></head>
   <body>
-    <h2 id="heading">Kanban Krazy! {{> loginButtons }}</h2>
+    <h2 id="heading">Kanban Krazy!</h2>
+    <div id="login">{{> loginButtons }}</div>
     {{> yield }}
     {{initFoundation}}
   </body>

@@ -5,8 +5,8 @@
       <div class="fixed contain-to-grid">
       <nav class="top-bar" data-topbar>
         <ul class="title-area">
-          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-          <li class="toggle-topbar menu-icon"></li>
+          <!-- Remove "menu-icon" to get rid of menu icon. Take out "Tasks" to just have icon alone -->
+          <li class="toggle-topbar menu-icon">Tasks: </li>
         </ul>
         <section class="top-bar-section">
           <ul class="center-buttons">
@@ -16,20 +16,6 @@
             <li><a id="editTask" data-reveal-id="editTaskModal" href="#">Edit</a></li>
             <li class="divider"></li>
             <li><a id="deleteTask" data-reveal-id="deleteTaskModal" href="#">Delete</a></li>
-            <li class="divider"></li>
-          </ul>
-        </section>
-      </nav>
-      </div>
-    </div>
-    <div class="medium-6 small-12 columns">
-      <div class="fixed contain-to-grid">
-      <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-          <li class="toggle-topbar menu-icon"></li>
-        </ul>
-        <section class="top-bar-section">
-          <ul class="center-buttons">
             <li class="divider"></li>
             <li><a id="todo" href="#">To Do</a></li>
             <li class="divider"></li>
@@ -77,8 +63,8 @@
   <div id="addTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
     <h2 id="modalTitle">Add Task</h2>
     <form id="addTask" action="tasks/add">
-      <input class="modalTaskTitle" type="text" value="Title">
-      <textarea class="modalTaskBody">Description</textarea>
+      <input class="addTaskTitle" type="text" value="Title">
+      <textarea class="addTaskBody">Description</textarea>
       <input type="submit">
     </form>
     <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>
@@ -89,8 +75,8 @@
   <div id="editTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
     <h2 id="modalTitle">Edit Task</h2>
     <form id="editTask" action="tasks/edit">
-      <input class="modalTaskTitle" type="text" value="{{taskTitle}}">
-      <textarea class="modalTaskBody">{{taskBody}}</textarea>
+      <input class="editTaskTitle" type="text" value="{{taskTitle}}">
+      <textarea class="editTaskBody">{{taskBody}}</textarea>
       <input type="submit">
     </form>
     <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>
