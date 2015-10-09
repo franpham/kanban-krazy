@@ -18,13 +18,14 @@ Template.ProfileEdit.helpers({   // declare variables used by Spacebar;
 
 // "this" refers ProfileEdit, which is a form;
 Template.ProfileEdit.events({
-  'submit profile.edit' : function (event) {
+  'submit #ProfileEdit' : function (event) {
     event.preventDefault();
     var user = Meteor.user();
     if (!user.profile)
       user.profile = {};
     user.profile.bday = event.target.bday.value;
     user.profile.tel  = event.target.tel.value;
-    Router.go('/dashboard');
+    Meteor.users.update({ '_id': Meteor.userId() }, { $set :{ 'profile': user.profile }});
+    Router.go('/dashboard');    // users are allowed to edit profile by default;
   }
 });

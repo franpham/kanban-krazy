@@ -21,8 +21,7 @@ Router.configure({
   }
 });
 
-Router.route('/', { template: 'Dashboard'
-});
+Router.route('/', { template: 'Dashboard' });
 Router.route('/login');
 Router.route('/dashboard');
 Router.route('/profile/edit', { name: 'profile.edit' });
