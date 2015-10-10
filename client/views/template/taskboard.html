@@ -33,13 +33,13 @@
   <div class="taskList row">
     <div class="taskRow small-12 large-4 columns" id="todoCol">
       <h2 id="todoHeader">To Do</h2>
-      {{#each toDoTasks}}
+      {{#each todoTasks}}
         {{> task}}
       {{/each}}
     </div>
     <div class="taskRow small-12 large-4 columns" id="progressCol">
       <h2 id="progressHeader">In Progress</h2>
-      {{#each inProgressTasks}}
+      {{#each progressTasks}}
         {{> task}}
       {{/each}}
     </div>
@@ -62,9 +62,9 @@
 <template name="AddTask">
   <div id="addTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
     <h2 id="modalTitle">Add Task</h2>
-    <form id="addTask" action="tasks/add">
-      <input class="addTaskTitle" type="text" value="Title">
-      <textarea class="addTaskBody">Description</textarea>
+    <form id="addTaskForm" action="tasks/add">
+      <input id="addTaskTitle" type="text" value="Title">
+      <textarea id="addTaskBody">Description</textarea>
       <input type="submit">
     </form>
     <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>
@@ -74,9 +74,9 @@
 <template name="EditTask">
   <div id="editTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
     <h2 id="modalTitle">Edit Task</h2>
-    <form id="editTask" action="tasks/edit">
-      <input class="editTaskTitle" type="text" value="{{taskTitle}}">
-      <textarea class="editTaskBody">{{taskBody}}</textarea>
+    <form id="editTaskForm" action="tasks/edit">
+      <input id="editTaskTitle" type="text" value="{{taskTitle}}">
+      <textarea id="editTaskBody">{{taskBody}}</textarea>
       <input type="submit">
     </form>
     <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>

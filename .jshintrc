@@ -1,0 +1,10 @@
+{
+  "browser": true,
+  "jquery": true,
+  "esnext": true,
+  "globals": {"Meteor": false, "Template": false, "Router": false},
+  "globalstrict": true,
+  "quotmark": false,
+  "undef": true,
+  "unused": true
+}
