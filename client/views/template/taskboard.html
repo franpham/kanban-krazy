@@ -34,30 +34,23 @@
     <div class="taskRow small-12 large-4 columns" id="todoCol">
       <h2 id="todoHeader">To Do</h2>
       {{#each todoTasks}}
-        {{> task}}
+        {{> Task }}
       {{/each}}
     </div>
     <div class="taskRow small-12 large-4 columns" id="progressCol">
       <h2 id="progressHeader">In Progress</h2>
       {{#each progressTasks}}
-        {{> task}}
+        {{> Task }}
       {{/each}}
     </div>
     <div class="taskRow small-12 large-4 columns" id="doneCol">
       <h2 id="doneHeader">Done</h2>
       {{#each doneTasks}}
-        {{> task}}
+        {{> Task }}
       {{/each}}
     </div>
   </div>
  </template>
-
-<template name="Task">
-  <div class="task">
-    <h3 class="taskTitle">{{taskTitle}}</h3>
-    <div class="taskBody">{{taskBody}}</div>
-  </div>
-</template>
 
 <template name="AddTask">
   <div id="addTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">

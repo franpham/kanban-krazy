@@ -47,12 +47,8 @@ Template.Taskboard.events({
 
 Template.Taskboard.helpers({
   todoTasks: function(){
-  if(Router.current().route.getName() === 'Taskboard'){
-      return Tasks.find({userId: Meteor.userId(), status: 'todo'});
-    }else if(Router.current().route.getName() === 'globaltaskboard'){
-      return Tasks.find({status: 'todo' , privacy: 'public'});
+      return Tasks.find({status: 'todo'});
     }
-  }
 });
 
 Template.Taskboard.helpers({
