@@ -1,50 +1,50 @@
 
 <template name="Taskboard">
+  <div class="taskButtons row">
+    <div class="small-12 columns">
+      <ul class="button-group round even-3">
+        <li class="centered"><a id="addTask" data-reveal-id="addTaskModal" href="#" class="button">Add Task</a></li>
+        <li class="centered"><a id="editTask" data-reveal-id="editTaskModal" href="#" class="button">Edit Task</a></li>
+        <li class="centered"><a id="deleteTask" data-reveal-id="deleteTaskModal" href="#" class="button">Delete Task</a></li>
+      </ul>
+    </div>
+  </div>
   <div class="controlButtons row">
-    <div class="medium-6 small-12 columns">
-      <div class="fixed contain-to-grid">
-      <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-          <!-- Remove "menu-icon" to get rid of menu icon. Take out "Tasks" to just have icon alone -->
-          <li class="toggle-topbar menu-icon">Tasks: </li>
-        </ul>
-        <section class="top-bar-section">
-          <ul class="center-buttons">
-            <li class="divider"></li>
-            <li><a id="addTask" data-reveal-id="addTaskModal" href="#">Add</a></li>
-            <li class="divider"></li>
-            <li><a id="editTask" data-reveal-id="editTaskModal" href="#">Edit</a></li>
-            <li class="divider"></li>
-            <li><a id="deleteTask" data-reveal-id="deleteTaskModal" href="#">Delete</a></li>
-            <li class="divider"></li>
-            <li><a id="todo" href="#">To Do</a></li>
-            <li class="divider"></li>
-            <li><a id="progress" href="#">In Progress</a></li>
-            <li class="divider"></li>
-            <li><a id="done" href="#">Done</a></li>
-            <li class="divider"></li>
-          </ul>
-        </section>
-      </nav>
+    <div class="small-12 columns">
+      <div class="contain-to-grid sticky">
+        <nav class="top-bar" data-topbar>
+          <section class="top-bar-section">
+            <ul class="center-buttons">
+              <li class="divider"></li>
+              <li class="moveLink"><a id="todo" href="#">Move &gt; ToDo</a></li>
+              <li class="divider"></li>
+              <li class="moveLink"><a id="progress" href="#">Move &gt; In Progress</a></li>
+              <li class="divider"></li>
+              <li class="moveLink"><a id="done" href="#">Move &gt; Done</a></li>
+              <li class="divider"></li>
+            </ul>
+          </section>
+        </nav>
       </div>
     </div>
   </div>
 
   <div class="taskList row">
     <div class="taskRow small-12 large-4 columns" id="todoCol">
-      <h2 id="todoHeader">To Do</h2>
+      <h3 id="todoHeader" class="centered">To Do</h3>
+      <!-- todoTasks must match variable defined in JS helpers; Task is the template name to render -->
       {{#each todoTasks}}
         {{> Task }}
       {{/each}}
     </div>
     <div class="taskRow small-12 large-4 columns" id="progressCol">
-      <h2 id="progressHeader">In Progress</h2>
+      <h3 id="progressHeader" class="centered">In Progress</h3>
       {{#each progressTasks}}
         {{> Task }}
       {{/each}}
     </div>
     <div class="taskRow small-12 large-4 columns" id="doneCol">
-      <h2 id="doneHeader">Done</h2>
+      <h3 id="doneHeader" class="centered">Done</h3>
       {{#each doneTasks}}
         {{> Task }}
       {{/each}}
@@ -54,7 +54,7 @@
 
 <template name="AddTask">
   <div id="addTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-    <h2 id="modalTitle">Add Task</h2>
+    <h3 id="modalTitle">Add Task</h3>
     <form id="addTaskForm" action="tasks/add">
       <input id="addTaskTitle" type="text" value="Title">
       <textarea id="addTaskBody">Description</textarea>
@@ -66,7 +66,7 @@
 
 <template name="EditTask">
   <div id="editTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-    <h2 id="modalTitle">Edit Task</h2>
+    <h3 id="modalTitle">Edit Task</h3>
     <form id="editTaskForm" action="tasks/edit">
       <input id="editTaskTitle" type="text" value="{{taskTitle}}">
       <textarea id="editTaskBody">{{taskBody}}</textarea>

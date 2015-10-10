@@ -2,10 +2,17 @@
 <template name="AppLayout">
   <head></head>
   <body>
-    <h2 id="heading">Kanban Krazy!</h2>
-    <div><a id="welcome" href="profile/edit">Welcome </a></div>
-    <div id="login">{{> loginButtons }}</div>
+    <div class="row">
+      <div class="small-12 columns">
+        <h2 class="centered">Kanban Krazy!</h2>
+        <a id="welcome" href="profile/edit">Welcome</a>
+        <div id="login">{{> loginButtons }}</div>
+      </div>
+    </div>
     {{> yield }}
-    {{initFoundation}}
+    <script src="js/foundation.topbar.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </template>

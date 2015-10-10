@@ -1,37 +1,52 @@
+"use strict";
+
 if (Tasks.find().count() === 0) {
     var toDoNames = [
                   {title: "Get better",
-                  author: "The Doctor",
-                  date: "09/20/15",
-                  body: "Whatever is plagueing Anna's body seriously needs to fuck off"
+                  userId: "",
+                  username: "The Doctor",
+                  modifiedAt: "09/20/15",
+                  body: "Whatever is plagueing Anna's body seriously needs to fuck off",
+                  status: "todo"
                   },
                   {title: "Have you thought about using FOUNDATION?!?!",
-                  author: "Joe",
-                  date: "09/26/15",
-                  body: "HMMMMMMM"
+                  userId: "",
+                  username: "Joe",
+                  modifiedAt: "09/26/15",
+                  body: "HMMMMMMM",
+                  status: "todo"
                   },
                   {title: "Become as good at coding as Francis!",
-                  author: "Anna",
-                  date: "10/9/15",
-                  body: "I mean I get that he's amazing, but I got this, right?"
+                  userId: "",
+                  username: "Anna",
+                  modifiedAt: "10/9/15",
+                  body: "I mean I get that he's amazing, but I got this, right?",
+                  status: "todo"
                   },
                   {title: "So what are you going to do next?",
-                  author: "Joe",
-                  date: "08/31/15",
-                  body: "HMMMMMMM"
+                  userId: "",
+                  username: "Joe",
+                  modifiedAt: "08/31/15",
+                  body: "HMMMMMMM",
+                  status: "todo"
                   },
                   {title: "Stop drawing dicks on the white board",
-                  author: "Jason",
-                  date: "10/08/15",
-                  body: ".....this seems self explanatory"
+                  userId: "",
+                  username: "Jason",
+                  modifiedAt: "10/08/15",
+                  body: ".....this seems self explanatory",
+                  status: "todo"
                   },
                   {title: "I think I see the problem there",
-                  author: "Joe",
-                  date: "09/15/15",
-                  body: "HMMMMMMM"
-                  },
-            ];
+                  userId: "",
+                  username: "Joe",
+                  modifiedAt: "09/15/15",
+                  body: "HMMMMMMM",
+                  status: "todo"
+                  }
+    ];
     for (var i = 0; i < toDoNames.length; i++){
-      Tasks.insert({title: toDoNames[i].title, author: toDoNames[i].author, date: toDoNames[i].date, body: toDoNames[i].body});
+      Tasks.insert({title: toDoNames[i].title, userId: toDoNames[i].userId, username: toDoNames[i].username,
+        modifiedAt: toDoNames[i].modifiedAt, body: toDoNames[i].body, status: toDoNames[i].status});
     }
-}
+};

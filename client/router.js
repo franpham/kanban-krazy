@@ -6,24 +6,24 @@ Router.configure({
     if (!Meteor.user()) {
       if (Meteor.loggingIn()) {
         // just wait if logging in;
+        // console.log('Router: logging in');
       } else {
-        this.render('Login');
+        this.redirect('login');
+        // console.log('Router: no user');
       }
     } else if (Router.current().route.getName() === 'login') {  // else user is loggedIn;
-      this.redirect('/Dashboard');
+      this.redirect('dashboard');
+      // console.log('Router: redirecting');
     }
+    // else
+    //   console.log('Router: user exists');
     this.next();    // must call next() to get the Router to continue executing;
-  },
-  after : function () {
-    if (!Meteor.user()) {
-      this.redirect('/Login');
-    }
   }
 });
 
-Router.route('/', { template: 'Dashboard' });
+Router.route('/', { template: '' });
 Router.route('/login', { template: '' });
-Router.route('/dashboard');
+Router.route('/dashboard', { template: ''});
 Router.route('/taskboard');
 Router.route('/profile/edit', { name: 'profile.edit' });
 // By default the router will render the capitalized name of the template, with punctuations removed and next letter capped.
