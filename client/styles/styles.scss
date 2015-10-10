@@ -20,3 +20,15 @@ $topbar-link-bg-color-hover: 'gray';
 .highlight {
   background-color: #F0E68C;
 }
+
+.spacer {
+  padding: 16px;
+}
+
+.task:hover {
+  background-color: #FFFACD;
+}
+
+.moveLink > a:hover {   // use important since cannot import _settings.scss
+  color: #FF4500 !important;
+}

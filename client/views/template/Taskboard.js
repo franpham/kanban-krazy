@@ -1,5 +1,10 @@
 "use strict";
 
+var TODO = 0;
+var PROGRESS = 1;
+var DONE = 2;
+var entry = {};   // if an empty object, nothing was selected or it was deleted;
+
 Template.Taskboard.rendered = function(){
 
 };
@@ -10,18 +15,17 @@ Template.Taskboard.destroyed = function(){
 
 };
 Template.Taskboard.helpers({   // declare variables used by Taskboard {{ }}
-  modifiedDate: function() {
-    var date = this.modifiedAt;
-    return date.toLocaleDateString() + ', ' + date.toLocaleTimeString();
-  },
   todoTasks: function() {
-    return Tasks.find({ status: 'todo' });
+    return Tasks.find({ status: TODO });
   },
   progressTasks: function() {
-    return Tasks.find({ status: 'progress' });
+    return Tasks.find({ status: PROGRESS });
   },
   doneTasks: function() {
-    return Tasks.find({ status: 'done' });
+    return Tasks.find({ status: DONE });
+  },
+  selected: function() {    // helpers must be functions;
+    return entry;
   }
 });
 
@@ -30,10 +34,9 @@ Template.Taskboard.events({
   'submit #AddTaskForm' : function (event) {
     event.preventDefault();
     if (Meteor.userId()) {
-      Meteor.users.insert({ 'userId': Meteor.userId(), 'username': Meteor.user().username, $currentDate: { modifiedAt: true },
+      Tasks.insert({ 'userId': Meteor.userId(), 'username': Meteor.user().username, $currentDate: { modifiedAt: true },
                             'title': event.target.addTaskTitle.value, 'body': event.target.addTaskBody.value });
     }
-    Router.go('/taskboard');
   }
 });
 
@@ -42,10 +45,22 @@ Template.Taskboard.events({
   'submit #EditTaskForm' : function (event) {
     event.preventDefault();
     if (Meteor.userId() === event.target.editTaskUserId.value) {
-      Meteor.users.update({ '_id': event.target.editTaskId.value }, { $set :{ $currentDate: { modifiedAt: true },
+      Tasks.update({ '_id': event.target.editTaskId.value }, { $set: { $currentDate: { modifiedAt: true },
                             'title': event.target.editTaskTitle.value, 'body': event.target.editTaskBody.value }});
     }
-    Router.go('/taskboard');
+  }
+});
+
+// "this" refers to moveLink, which is a link;
+Template.Taskboard.events({
+  'click .moveLink' : function (event) {
+    event.preventDefault();
+    var target = $(event.target).parent();  // child link is clicked;
+    if (entry.userId && Meteor.userId() === entry.userId) {
+      var status = target.prop('id') === 'todo' ? 0 : (target.prop('id') === 'progress' ? 1 : 2);
+      Tasks.update({ '_id': entry.taskId }, { $set: { 'status': status }});
+      $(entry.taskId).toggleClass('highlight');
+    }
   }
 });
 
@@ -53,9 +68,22 @@ Template.Taskboard.events({
 Template.Taskboard.events({
   'click #deleteTask' : function (event) {
     event.preventDefault();
-    if (Meteor.userId() === event.target.data.userId) {
-      Meteor.users.remove({ '_id': event.target.data.taskId });
+    if (Meteor.userId() === entry.userId) {
+      Tasks.remove({ '_id': entry.taskId });
+      $(entry.taskId).toggleClass('highlight');
+      entry = {};   // reset the selection;
     }
+  }
+});
+
+// "this" refers to editTask, which is a link;
+Template.Taskboard.events({
+  'click #editTask' : function (event) {
+    event.preventDefault();
+    $(entry.taskId).toggleClass('highlight');
+    // enable/ disable EditTaskForm, which submits the changes;
+    var disabled = entry.userId && Meteor.userId() !== entry.userId;
+    $('#editTaskSubmit').prop('disabled', disabled);
   }
 });
 
@@ -63,9 +91,11 @@ Template.Taskboard.events({
 Template.Taskboard.events({
   'click .task' : function (event) {
     event.preventDefault();
-    var task = $('#deleteTask');
-    task.data('taskId', event.target.id);
-    task.data('userId', event.target.data.userId);
-    task.toggleClass('highlight');
-  } // set the taskId && userId of the selected Task to enable deletion;
+    var target = $(event.target).parent();  // child divs are clicked;
+    target.toggleClass('highlight');
+    entry.taskId = target.prop('id');
+    entry.userId = target.children('.taskUserId').text();
+    entry.title  = target.children('.taskTitle').text();
+    entry.body = target.children('.taskBody').text();
+  }
 });

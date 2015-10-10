@@ -1,8 +1,10 @@
 <template name="Task">
-  <div id="{{_id}}" class="task" data-userId="{{userId}}">
+  <div id="{{_id}}" class="task">
+    <!-- must use class instead of id since many tasks exist -->
     <div class="taskTitle">{{title}}</div>
     <div class="taskUser">{{username}}, {{modifiedDate}}</div>
     <div class="taskBody">{{body}}</div>
+    <div class="taskUserId">{{userId}}</div>
     <!-- variables must match db names -->
   </div>
 </template>

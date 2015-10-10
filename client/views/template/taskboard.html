@@ -9,18 +9,18 @@
       </ul>
     </div>
   </div>
-  <div class="controlButtons row">
+  <div class="moveButtons row">
     <div class="small-12 columns">
       <div class="contain-to-grid sticky">
         <nav class="top-bar" data-topbar>
           <section class="top-bar-section">
             <ul class="center-buttons">
               <li class="divider"></li>
-              <li class="moveLink"><a id="todo" href="#">Move &gt; ToDo</a></li>
+              <li class="moveLink" id="todo"><a href="#">Move &gt; To Do</a></li>
               <li class="divider"></li>
-              <li class="moveLink"><a id="progress" href="#">Move &gt; In Progress</a></li>
+              <li class="moveLink" id="progress"><a href="#">Move &gt; In Progress</a></li>
               <li class="divider"></li>
-              <li class="moveLink"><a id="done" href="#">Move &gt; Done</a></li>
+              <li class="moveLink" id="done"><a href="#">Move &gt; Done</a></li>
               <li class="divider"></li>
             </ul>
           </section>
@@ -53,11 +53,15 @@
  </template>
 
 <template name="AddTask">
-  <div id="addTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <div id="addTaskModal" class="reveal-modal" data-reveal aria-hidden="true" role="dialog">
     <h3 id="modalTitle">Add Task</h3>
     <form id="addTaskForm" action="tasks/add">
-      <input id="addTaskTitle" type="text">
-      <textarea id="addTaskBody" rows="10" maxlength="200" placeholder="Max characters is 200"></textarea>
+      <label for="addTaskTitle">Title:
+        <input id="addTaskTitle" type="text" placeholder="Task">
+      </label>
+      <label for="addTaskBody">Description:
+        <textarea id="addTaskBody" rows="10" maxlength="200" placeholder="Max characters is 200"></textarea>
+      </label>
       <input type="submit">
     </form>
     <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>
@@ -65,14 +69,18 @@
 </template>
 
 <template name="EditTask">
-  <div id="editTaskModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <div id="editTaskModal" class="reveal-modal" data-reveal aria-hidden="true" role="dialog">
     <h3 id="modalTitle">Edit Task</h3>
     <form id="editTaskForm" action="tasks/edit">
-      <input id="editTaskTitle" type="text" value="{{title}}">
-      <textarea id="editTaskBody" rows="10" maxlength="200" placeholder="Max characters is 200">{{body}}</textarea>
-      <input id="editTaskUserId" type="hidden" value="{{userId}}">
-      <input id="editTaskId" type="hidden" value="{{_id}}">
-      <input type="submit">
+      <label for="editTaskTitle">Title:
+        <input id="editTaskTitle" type="text" value="{{selected.title}}">
+      </label>
+      <label for="editTaskBody">Description:
+        <textarea id="editTaskBody" rows="10" maxlength="200">{{selected.body}}</textarea>
+      </label>
+      <input id="editTaskUserId" type="hidden" value="{{selected.userId}}">
+      <input id="editTaskId" type="hidden" value="{{selected._id}}">
+      <input id="editTaskSubmit" type="submit">
     </form>
     <a href="#" class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
