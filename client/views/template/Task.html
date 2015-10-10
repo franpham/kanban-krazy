@@ -1,6 +1,7 @@
 <template name="Task">
-  <div class="task">
-    <h3 class="taskTitle">{{title}}</h3>
+  <div id="{{_id}}" class="task" data-userId="{{userId}}">
+    <div class="taskTitle">{{title}}</div>
+    <div class="taskUser">{{username}}, {{modifiedDate}}</div>
     <div class="taskBody">{{body}}</div>
     <!-- variables must match db names -->
   </div>

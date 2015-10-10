@@ -1,71 +1,71 @@
 "use strict";
 
-Template.ProfileEdit.rendered = function(){
+Template.Taskboard.rendered = function(){
 
 };
-
-Template.ProfileEdit.created = function(){
-
-};
-
-Template.ProfileEdit.destroyed = function(){
+Template.Taskboard.created = function(){
 
 };
+Template.Taskboard.destroyed = function(){
 
-Template.ProfileEdit.helpers({   // declare variables used by Spacebar;
-
+};
+Template.Taskboard.helpers({   // declare variables used by Taskboard {{ }}
+  modifiedDate: function() {
+    var date = this.modifiedAt;
+    return date.toLocaleDateString() + ', ' + date.toLocaleTimeString();
+  },
+  todoTasks: function() {
+    return Tasks.find({ status: 'todo' });
+  },
+  progressTasks: function() {
+    return Tasks.find({ status: 'progress' });
+  },
+  doneTasks: function() {
+    return Tasks.find({ status: 'done' });
+  }
 });
 
-// "this" refers Taskboard, which is a form;
+// "this" refers to AddTaskForm, which is a form;
 Template.Taskboard.events({
   'submit #AddTaskForm' : function (event) {
     event.preventDefault();
-    Meteor.users.insert({ 'userId': Meteor.userId(), 'username': Meteor.user().username, $currentDate: { modifiedAt: true },
-                          'title': event.target.addTaskTitle.value, 'body': event.target.addTaskBody.value });
+    if (Meteor.userId()) {
+      Meteor.users.insert({ 'userId': Meteor.userId(), 'username': Meteor.user().username, $currentDate: { modifiedAt: true },
+                            'title': event.target.addTaskTitle.value, 'body': event.target.addTaskBody.value });
+    }
     Router.go('/taskboard');
   }
 });
 
-// "this" refers Taskboard, which is a form;
+// "this" refers to EditTaskForm, which is a form;
 Template.Taskboard.events({
   'submit #EditTaskForm' : function (event) {
     event.preventDefault();
-
-    Meteor.users.update({ '_id': event.target.editTaskId.value }, { $set :{ $currentDate: { modifiedAt: true },
-                          'title': event.target.editTaskTitle.value, 'body': event.target.editTaskBody.value }});
+    if (Meteor.userId() === event.target.editTaskUserId.value) {
+      Meteor.users.update({ '_id': event.target.editTaskId.value }, { $set :{ $currentDate: { modifiedAt: true },
+                            'title': event.target.editTaskTitle.value, 'body': event.target.editTaskBody.value }});
+    }
     Router.go('/taskboard');
   }
 });
 
-// "this" refers Taskboard, which is a form;
+// "this" refers to deleteTask, which is a link;
 Template.Taskboard.events({
-  'submit #deleteTask' : function (event) {
+  'click #deleteTask' : function (event) {
     event.preventDefault();
-    Meteor.users.remove({'_id': event.target.deleteTaskId.value});
+    if (Meteor.userId() === event.target.data.userId) {
+      Meteor.users.remove({ '_id': event.target.data.taskId });
+    }
   }
 });
 
-Template.Taskboard.helpers({
-  todoTasks: function(){
-      return Tasks.find({status: 'todo'});
-    }
-});
-
-Template.Taskboard.helpers({
-  progressTasks: function(){
-    if(Router.current().route.getName() === 'Taskboard'){
-      return Tasks.find({userId: Meteor.userId(), status: 'inProgress'});
-    }else if(Router.current().route.getName() === 'globaltaskboard'){
-      return Tasks.find({status: 'inProgress' , privacy: 'public'});
-    }
-  }
-});
-Template.Taskboard.helpers({
-  doneTasks: function(){
-    if(Router.current().route.getName() === 'Taskboard'){
-      return Tasks.find({userId: Meteor.userId(), status: 'done'});
-    }else if(Router.current().route.getName() === 'globaltaskboard'){
-      return Tasks.find({status: 'done' , privacy: 'public'});
-    }
-  }
+// "this" refers to Task, which is a div;
+Template.Taskboard.events({
+  'click .task' : function (event) {
+    event.preventDefault();
+    var task = $('#deleteTask');
+    task.data('taskId', event.target.id);
+    task.data('userId', event.target.data.userId);
+    task.toggleClass('highlight');
+  } // set the taskId && userId of the selected Task to enable deletion;
 });
